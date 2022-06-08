@@ -1,0 +1,25 @@
+services:
+  database:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - USERNAME=${USERNAME}
+        - USER_UID=${USER_UID}
+        - USER_GID=${USER_UID}
+        - UBUNTU_VERSION=${UBUNTU_VERSION}
+    ports:
+      - "1433:1433"
+    env_file:
+      - sqlserver.env
+      - sapassword.env
+    volumes:
+      - sqlsystem:/var/opt/mssql/
+      - sqldata:/var/opt/sqlserver/data
+      - sqllog:/var/opt/sqlserver/log
+      - sqlbackup:/var/opt/sqlserver/backup
+volumes:
+  sqlsystem:
+  sqldata:
+  sqllog:
+  sqlbackup:
